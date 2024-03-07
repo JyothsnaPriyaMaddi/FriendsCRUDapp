@@ -5,6 +5,10 @@ import com.jyothsna.payloads.MyFriendsDto;
 import com.jyothsna.repositories.MyFriendsRepository;
 import com.jyothsna.services.MyFriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +29,10 @@ public class MyFriendsServiceImpl implements MyFriendsService {
     }
 
     @Override
-    public List<MyFriendsDto> getAllFriends() {
-        List<MyFriends> myFriends = repository.findAll();
+    public List<MyFriendsDto> getAllFriends(int pageNo, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+
+        Page<MyFriends> myFriends = repository.findAll(pageable);
         List<MyFriendsDto> dto = myFriends.stream().map(friend -> mapToDto(friend)).collect(Collectors.toList());
         return dto;
     }

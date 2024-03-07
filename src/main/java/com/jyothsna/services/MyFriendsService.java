@@ -8,7 +8,7 @@ import java.util.List;
 public interface MyFriendsService {
     public MyFriendsDto createMyFriends(MyFriendsDto myFriendsDto);
     public void deleteFriend(int id);
-    public List<MyFriendsDto> getAllFriends();
+    public List<MyFriendsDto> getAllFriends(int pageNo, int pageSize, String sortBy);
     public MyFriendsDto getFriendById(int id);
     public MyFriendsDto updateFriend(int id, MyFriendsDto friendsDto);
 }
